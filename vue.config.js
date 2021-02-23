@@ -35,6 +35,16 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    // 配置反向代理
+    proxy: {
+      '/api': {
+        // 跨域请求的地址
+        target: 'http://ihrm-java.itheima.net/',
+        changeOrigin: true // 是否跨域
+        // 重写路径
+        // pathRewrite: {'^/api': '' // 假设我们想把 localhost:8888/api/login 变成www.baidu.com/login 就需要这么做 }
+      }
     }
     // before: require('./mock/mock-server.js')
   },
