@@ -115,3 +115,20 @@ export function param2Obj(url) {
   })
   return obj
 }
+
+// 处理树形数据
+export function tranListToTreeData(list, rootValue) {
+  var arr = []
+  list.forEach(item => {
+    if (item.pid === rootValue) {
+      // 找到之后看下面还有没有子节点
+      const children = tranListToTreeData(list, item.id)
+      if (children.length > 0) {
+        // 如果有，说明有子节点
+        item.children = children
+      }
+      arr.push(item) // 将内容添加到数组中
+    }
+  })
+  return arr
+}

@@ -11,7 +11,7 @@ import 'nprogress/nprogress.css'
 // next(地址)跳转到某个地址
 // 定义白名单
 const WhiteList = ['/login', '/404']
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   nprogress.start()
   if (store.getters.token) {
     // 如果有token
@@ -19,6 +19,10 @@ router.beforeEach((to, from, next) => {
       // 如果访问的 是登录页
       return next('/') // 跳转到主页
     } else {
+      // 如果没有用户资料，就获取用户资料
+      if (!store.getters.userId) {
+        await store.dispatch('user/getUserInfo')
+      }
       next() // 放过
     }
   } else {

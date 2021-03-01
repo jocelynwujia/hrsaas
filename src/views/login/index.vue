@@ -129,11 +129,11 @@ export default {
       //   }
       // })
       // 表单的手动调用
-      this.$refs.loginForm.validate(isOk => {
+      this.$refs.loginForm.validate(async isOk => {
         if (isOk) {
           try {
             this.loading = true
-            this['user/login'](this.loginForm)
+            await this['user/login'](this.loginForm)
             // 如果登录成功，实现登录页面跳转
             this.$router.push('/')
           } catch (error) {
